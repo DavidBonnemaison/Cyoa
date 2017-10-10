@@ -1,2 +1,4 @@
 # Cyoa
-"Choose your own adventure" creation tool. Outputs JSON adventure and graphs.
+"Choose your own adventure" creation toolkit.
+Allows edition of adventures.
+Outputs JSON, JS or graphs.

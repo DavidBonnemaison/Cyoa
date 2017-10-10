@@ -1,0 +1,27 @@
+{
+  "name": "cyoa",
+  "version": "1.0.0",
+  "description": "Choose your own adventure toolkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidBonnemaison/Cyoa.git"
+  },
+  "author": "David Bonnemaison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DavidBonnemaison/Cyoa/issues"
+  },
+  "homepage": "https://github.com/DavidBonnemaison/Cyoa#readme",
+  "dependencies": {
+    "next": "^4.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
