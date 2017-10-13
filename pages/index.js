@@ -1,26 +1,30 @@
 import React from 'react';
 import 'whatwg-fetch';
+import withRedux from 'next-redux-wrapper';
+import initializeStore from './../redux/store';
 import Story from './../components/Story';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      story: null
-    };
+
+  static getInitialProps({ store }) {
+    return { store };
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    console.log("this.props", this.props);
+
     fetch('/static/story.json')
       .then(res => res.json())
       .then(story =>
-        this.setState({
+        dispatch({
+          type: 'STORY_FETCHED',
           story
         })
       );
   }
   render() {
-    const { story } = this.state;
+    const { story } = this.props;
     return (
       <div>
         Choose your own adventure !
@@ -30,4 +34,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRedux(initializeStore, state => state)(App);
