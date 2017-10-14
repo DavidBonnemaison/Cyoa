@@ -1,37 +1,27 @@
 import React from 'react';
-import 'whatwg-fetch';
-import withRedux from 'next-redux-wrapper';
-import initializeStore from './../redux/store';
+import { withReduxSaga } from './../store';
 import Story from './../components/Story';
+import { loadData } from '../actions';
 
 class App extends React.Component {
-
   static getInitialProps({ store }) {
-    return { store };
+    if (!store.getState().placeholderData) {
+      store.dispatch(loadData());
+    }
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    console.log("this.props", this.props);
-
-    fetch('/static/story.json')
-      .then(res => res.json())
-      .then(story =>
-        dispatch({
-          type: 'STORY_FETCHED',
-          story
-        })
-      );
+    dispatch(loadData());
   }
   render() {
-    const { story } = this.props;
     return (
       <div>
         Choose your own adventure !
-        {story ? <Story story={story} /> : <p>Loading...</p>}
+        <Story />
       </div>
     );
   }
 }
 
-export default withRedux(initializeStore, state => state)(App);
+export default withReduxSaga(App);
