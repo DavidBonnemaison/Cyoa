@@ -5,12 +5,14 @@ import nextReduxSaga from 'next-redux-saga';
 import createSagaMiddleware from 'redux-saga';
 
 import story from './components/Story/reducer';
+import mode from './components/Mode/reducer';
 import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-  story
+  story,
+  mode
 });
 
 export function configureStore(initialState = {}) {

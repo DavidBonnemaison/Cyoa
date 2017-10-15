@@ -1,7 +1,7 @@
 import React from 'react';
 import { withReduxSaga } from './../store';
-import Story from './../components/Story/index';
 import { loadData } from '../components/Story/actions';
+import Mode from './../components/Mode/index';
 
 class App extends React.Component {
   static getInitialProps({ store }) {
@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
       <div>
         Choose your own adventure !
-        <Story />
+        <Mode />
       </div>
     );
   }
