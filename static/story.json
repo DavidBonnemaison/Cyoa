@@ -3,16 +3,19 @@
   "steps": [
     {
       "id": 0,
+      "title": "Title of step 0",
       "text": "This is a great test",
       "to": [1, 2]
     },
     {
       "id": 1,
+      "title": "Title of step 1",
       "text": "This is another great test",
       "to": [0, 2]
     },
     {
       "id": 2,
+      "title": "Title of step 2",
       "text": "This is the best test",
       "to": [0, 1]
     }

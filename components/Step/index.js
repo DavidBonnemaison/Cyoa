@@ -1,9 +1,19 @@
 import React from 'react';
+import Editable from './Editable';
 
 class Step extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    const { id, text, to } = this.props;
-    return <div>{text}</div>;
+    const { props } = this;
+    return (
+      <div>
+        <Editable {...props} elm="h2" selector="title" />
+        <Editable {...props} elm="p" selector="text" />
+      </div>
+    );
   }
 }
 

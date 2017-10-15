@@ -1,7 +1,8 @@
 export const actionTypes = {
   FAILURE: 'FAILURE',
   LOAD_DATA: 'LOAD_DATA',
-  LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS'
+  LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
+  EDIT_FIELD: 'EDIT_FIELD'
 };
 
 export function failure(error) {
@@ -21,3 +22,10 @@ export function loadDataSuccess(data) {
     data
   };
 }
+
+export const editField = ({ id, field, value }) => ({
+  type: actionTypes.EDIT_FIELD,
+  id,
+  field,
+  value
+});

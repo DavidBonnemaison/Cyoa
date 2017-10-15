@@ -4,12 +4,12 @@ import Step from './../Step/index';
 
 class Story extends React.Component {
   render() {
-    const { story, mode } = this.props;
-    return story ? (
+    const { steps, name, mode } = this.props;
+    return steps ? (
       <div>
-        Story name: {story.name} ({mode})
-        {story.steps.map(step => {
-          return <Step key={step.id} {...step} />;
+        Story name: {name} ({mode})
+        {steps.map(step => {
+          return <Step key={step.id} {...step} mode={mode} />;
         })}
       </div>
     ) : (

@@ -1,8 +1,6 @@
 import { actionTypes } from './actions';
 
-export const initialState = {
-  story: null
-};
+export const initialState = {};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -14,8 +12,21 @@ function reducer(state = initialState, action) {
 
     case actionTypes.LOAD_DATA_SUCCESS:
       return {
+        ...action.data
+      };
+
+    case actionTypes.EDIT_FIELD:
+      return {
         ...state,
-        story: action.data
+        steps: state.steps.map(
+          step =>
+            step.id === action.id
+              ? {
+                  ...step,
+                  [action.field]: action.value
+                }
+              : step
+        )
       };
 
     default:
