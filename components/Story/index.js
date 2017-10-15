@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Step from './Step';
+import Step from './../Step/index';
 
 class Story extends React.Component {
   render() {
@@ -19,4 +19,4 @@ class Story extends React.Component {
   }
 }
 
-export default connect(state => state)(Story);
+export default connect(state => state.story)(Story);

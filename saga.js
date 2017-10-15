@@ -4,7 +4,7 @@ import { all, put, takeLatest } from 'redux-saga/effects';
 import es6promise from 'es6-promise';
 import 'isomorphic-fetch';
 
-import { actionTypes, failure, loadDataSuccess } from './actions';
+import { actionTypes, failure, loadDataSuccess } from './components/Story/actions';
 
 es6promise.polyfill();
 
