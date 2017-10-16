@@ -18,6 +18,42 @@
       "title": "Title of step 2",
       "text": "This is the best test",
       "to": [0, 1]
+    },
+    {
+      "id": 3,
+      "title": "Title of step 0",
+      "text": "This is a great test",
+      "to": [1, 2]
+    },
+    {
+      "id": 4,
+      "title": "Title of step 1",
+      "text": "This is another great test",
+      "to": [0, 2]
+    },
+    {
+      "id": 5,
+      "title": "Title of step 2",
+      "text": "This is the best test",
+      "to": [0, 1]
+    },
+    {
+      "id": 6,
+      "title": "Title of step 2",
+      "text": "This is the best test",
+      "to": [0, 1]
+    },
+    {
+      "id": 7,
+      "title": "Title of step 2",
+      "text": "This is the best test",
+      "to": [0, 1]
+    },
+    {
+      "id": 8,
+      "title": "Title of step 2",
+      "text": "This is the best test",
+      "to": [0, 1]
     }
   ]
 }

@@ -1,27 +1,53 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withReduxSaga } from './../store';
-import { loadData } from '../components/Story/actions';
 import Mode from './../components/Mode/index';
 
 class App extends React.Component {
-  static getInitialProps({ store }) {
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData());
-    }
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(loadData());
+    if (document) {
+      function addStylesheet(href) {
+        const head = document.head,
+          link = document.createElement('link');
+
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
+        link.href = href;
+
+        head.appendChild(link);
+      }
+
+      addStylesheet('https://unpkg.com/react-selectize@3.0.1/dist/index.min.css')
+      addStylesheet('/static/css/font-awesome.css')
+    }
   }
+
   render() {
+    const { loaded } = this.props;
     return (
-      <div>
-        Choose your own adventure !
+      <div style={{ height: '100%' }}>
+        <style global jsx>{`
+          html,
+          body {
+            height: calc(100% - 1.7em);
+            margin: 0;
+          }
+          body {
+            font-family: sans-serif;
+            padding-top: 3.4em;
+          }
+          .react-selectize.default {
+            width: 100% !important;
+          }
+        `}</style>
         <Mode />
       </div>
     );
   }
 }
 
-export default withReduxSaga(App);
+export default withReduxSaga(connect(state => state.story)(App));

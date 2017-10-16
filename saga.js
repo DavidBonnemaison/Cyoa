@@ -12,9 +12,9 @@ import {
 
 es6promise.polyfill();
 
-function* loadDataSaga() {
+function* loadDataSaga(action) {
   try {
-    const res = yield fetch('/static/story.json');
+    const res = yield fetch(action.filePath);
     const data = yield res.json();
     yield put(loadDataSuccess(data));
   } catch (err) {

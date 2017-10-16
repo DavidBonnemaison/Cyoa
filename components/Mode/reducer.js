@@ -1,7 +1,7 @@
 import { actionTypes } from './actions';
 
 export const initialState = {
-  mode: 'edit'
+  mode: 'mixed'
 };
 
 function reducer(state = initialState, action) {
