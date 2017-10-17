@@ -3,6 +3,15 @@ import { actionTypes } from './actions';
 export const initialState = { loaded: false };
 
 function reducer(state = initialState, action) {
+  const getNextId = () => Math.max(...state.steps.map(s => s.id)) + 1;
+
+  const defaultStep = () => ({
+    id: getNextId(),
+    title: 'Example title',
+    text: 'Example test',
+    to: []
+  });
+
   const applyToStep = (id, func) => {
     return {
       ...state,
@@ -45,6 +54,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         name: action.value
+      };
+
+    case actionTypes.ADD_STEP:
+      return {
+        ...state,
+        steps: state.steps.concat(defaultStep())
       };
 
     default:

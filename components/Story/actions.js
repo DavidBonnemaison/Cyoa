@@ -5,7 +5,8 @@ export const actionTypes = {
   LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
   EDIT_FIELD: 'EDIT_FIELD',
   EDIT_NAME: 'EDIT_NAME',
-  EDIT_TO_STEPS: 'EDIT_TO_STEPS'
+  EDIT_TO_STEPS: 'EDIT_TO_STEPS',
+  ADD_STEP: 'ADD_STEP'
 };
 
 export function failure(error) {
@@ -47,4 +48,8 @@ export const editToSteps = ({ id, to }) => ({
   type: actionTypes.EDIT_TO_STEPS,
   id,
   to
+});
+
+export const addStep = () => ({
+  type: actionTypes.ADD_STEP
 });

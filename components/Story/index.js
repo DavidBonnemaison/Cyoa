@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withReduxSaga } from './../../store';
-import { editName } from './actions';
+import { editName, addStep } from './actions';
 import Step from './../Step/index';
+import AddStep from './AddStep';
 
 class Story extends React.Component {
   _onChange = ({ target }) => {
@@ -12,6 +13,10 @@ class Story extends React.Component {
         value: target.innerHTML
       })
     );
+  };
+
+  _addStep = () => {
+    this.props.dispatch(addStep())
   };
 
   render() {
@@ -46,6 +51,7 @@ class Story extends React.Component {
                 <Step key={step.id} {...step} mode={mode} stepIds={stepIds} />
               );
             })}
+            {editable && <AddStep onClick={this._addStep} />}
           </div>
         ) : (
           <p>Loading...</p>
