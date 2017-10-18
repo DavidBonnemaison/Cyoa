@@ -11,6 +11,7 @@ class Step extends React.Component {
   }
 
   _editToStep = options => {
+    console.log(options);
     const { id, dispatch } = this.props;
     const to = options.map(o => o.value);
     dispatch(editToSteps({ id, to }));
@@ -18,8 +19,11 @@ class Step extends React.Component {
 
   render() {
     const { props } = this;
-    const { mode, to, stepIds } = props;
-    return (
+    const { mode, to, steps } = props;
+    const stepTos = steps.map(s => ({ label: s.title, value: s.id }));
+    const getStepLabel = value => steps.filter(s => s.id === value)[0].title;
+
+    return steps ? (
       <Element className="Step" name={`#step-${props.id}`}>
         <style global jsx>
           {`
@@ -45,6 +49,7 @@ class Step extends React.Component {
               padding: 2px 4px 4px;
               margin: 2px;
               font-size: 1em;
+              width: 100%;
             }
           `}
         </style>
@@ -52,28 +57,26 @@ class Step extends React.Component {
         <Editable {...props} elm="p" selector="text" />
         {mode === 'view' ? (
           <div className="GoToButtons">
-            {to.map(t => (
+            {to.filter(t => t!== null).map(t => (
               <Link to={`#step-${t}`} key={t} smooth={true} duration={200}>
-                <button>Go to {t}</button>
+                <button>{getStepLabel(t)}</button>
               </Link>
             ))}
           </div>
         ) : (
           <MultiSelect
+            key={Math.random()}
             placeholder="Select next steps"
-            options={stepIds.map(value => ({
-              label: `Step ${value}`,
-              value
-            }))}
-            defaultValues={to.map(value => ({
-              label: `Step ${value}`,
-              value
+            options={stepTos}
+            defaultValues={to.filter(t => t!== null).map(t => ({
+              label: getStepLabel(t),
+              value: t
             }))}
             onValuesChange={this._editToStep}
           />
         )}
       </Element>
-    );
+    ) : null;
   }
 }
 

@@ -47,7 +47,7 @@ export const editName = ({ value }) => ({
 export const editToSteps = ({ id, to }) => ({
   type: actionTypes.EDIT_TO_STEPS,
   id,
-  to
+  to: to.filter(t => t!== null)
 });
 
 export const addStep = () => ({

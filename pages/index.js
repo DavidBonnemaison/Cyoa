@@ -21,8 +21,10 @@ class App extends React.Component {
         head.appendChild(link);
       }
 
-      addStylesheet('https://unpkg.com/react-selectize@3.0.1/dist/index.min.css')
-      addStylesheet('/static/css/font-awesome.css')
+      addStylesheet(
+        'https://unpkg.com/react-selectize@3.0.1/dist/index.min.css'
+      );
+      addStylesheet('/static/css/font-awesome.css');
     }
   }
 
@@ -42,6 +44,17 @@ class App extends React.Component {
           }
           .react-selectize.default {
             width: 100% !important;
+          }
+          .react-selectize.root-node
+            .react-selectize-control
+            .react-selectize-search-field-and-selected-values
+            .value-wrapper {
+            width: 90%;
+            text-align: center;
+            display: block !important;
+          }
+          .multi-select.react-selectize.default.root-node .simple-value {
+            display: block;
           }
         `}</style>
         <Mode />

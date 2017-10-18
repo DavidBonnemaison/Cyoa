@@ -1,59 +1,95 @@
 {
   "name": "test",
+  "env": {
+    "year": 2017,
+    "strength": 0,
+    "life": {
+      "maximum": 100,
+      "minimum": 0,
+      "initial": 100,
+      "current": 100
+    }
+  },
   "steps": [
     {
       "id": 0,
-      "title": "Title of step 0",
-      "text": "This is a great test",
-      "to": [1, 2]
+      "title": "Spawning_point",
+      "text": "This is where you spawn",
+      "actions": {
+        "goTo": [
+          {
+            "step": 1
+          },
+          {
+            "step": 2
+          }
+        ]
+      }
     },
     {
       "id": 1,
-      "title": "Title of step 1",
-      "text": "This is another great test",
-      "to": [0, 2]
+      "title": "Place_1",
+      "text": "This is a place you can go in with enough strength",
+      "conditions": [
+        {
+          "var": "env.strength",
+          "operand": "greater",
+          "than": 5
+        }
+      ],
+      "actions": {
+        "goTo": [
+          {
+            "step": 0
+          }
+        ]
+      }
     },
     {
       "id": 2,
-      "title": "Title of step 2",
-      "text": "This is the best test",
-      "to": [0, 1]
-    },
-    {
-      "id": 3,
-      "title": "Title of step 0",
-      "text": "This is a great test",
-      "to": [1, 2]
-    },
-    {
-      "id": 4,
-      "title": "Title of step 1",
-      "text": "This is another great test",
-      "to": [0, 2]
-    },
-    {
-      "id": 5,
-      "title": "Title of step 2",
-      "text": "This is the best test",
-      "to": [0, 1]
-    },
-    {
-      "id": 6,
-      "title": "Title of step 2",
-      "text": "This is the best test",
-      "to": [0, 1]
-    },
-    {
-      "id": 7,
-      "title": "Title of step 2",
-      "text": "This is the best test",
-      "to": [0, 1]
-    },
-    {
-      "id": 8,
-      "title": "Title of step 2",
-      "text": "This is the best test",
-      "to": [0, 1]
+      "title": "Place_2",
+      "text": "This is a place you can go before 2017 and if it is open and nice enough",
+      "state": {
+        "isNice": {
+          "type": {
+            "oneOf": [
+              "veryNice",
+              "niceEnough",
+              "notNice"
+            ]
+          },
+          "initial": "notNice",
+          "current": "notNice"
+        },
+        "isOpen": {
+          "type": "boolean",
+          "initial": false,
+          "current": false
+        }
+      },
+      "conditions": [
+        {
+          "var": "env.year",
+          "operand": "less",
+          "than": 2017
+        },
+        {
+          "var": "state.isNice",
+          "operand": "different",
+          "than": "notNice"
+        },
+        {
+          "var": "state.isOpen",
+          "equals": true
+        }
+      ],
+      "actions": {
+        "goTo": [
+          {
+            "step": 0
+          }
+        ]
+      }
     }
   ]
 }

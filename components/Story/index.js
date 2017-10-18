@@ -21,7 +21,6 @@ class Story extends React.Component {
 
   render() {
     const { steps, name, mode } = this.props;
-    const stepIds = steps && steps.map(s => s.id);
     const editable = mode === 'edit';
     return (
       <div className="Story">
@@ -48,7 +47,7 @@ class Story extends React.Component {
             />
             {steps.map(step => {
               return (
-                <Step key={step.id} {...step} mode={mode} stepIds={stepIds} />
+                <Step key={step.id} {...step} mode={mode} steps={steps} />
               );
             })}
             {editable && <AddStep onClick={this._addStep} />}
