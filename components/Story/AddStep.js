@@ -2,7 +2,7 @@ export default ({ onClick }) => (
   <div onClick={onClick}>
     <style jsx>{`
       div {
-        box-sizing:border-box;
+        box-sizing: border-box;
         background: #ba0404;
         color: white;
         text-align: center;
@@ -21,6 +21,7 @@ export default ({ onClick }) => (
         cursor: pointer;
         transition: 200ms all ease-in-out;
         border: 0.1em solid #ba0404;
+        z-index: 4;
       }
       div:hover {
         margin-bottom: 0;

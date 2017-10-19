@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withReduxSaga } from '../../store';
+import { bindActionCreators } from 'redux';
 import { decode } from 'base-64';
 import { uploadData } from './actions';
 
@@ -10,23 +10,16 @@ class StoryLoader extends React.Component {
     const file = e.target.files[0];
 
     reader.onload = upload => {
-      this.props.dispatch(
-        uploadData({
-          data: decode(upload.target.result.replace('data:;base64,', '')),
-          name: file.name
-        })
-      );
+      this.props.uploadData({
+        data: decode(upload.target.result.replace('data:;base64,', '')),
+        name: file.name
+      });
     };
 
     reader.readAsDataURL(file);
   };
 
   _saveStoryFile = () => {
-    const b = new Blob([JSON.stringify(this.props)], {
-      type: 'application/json'
-    });
-    console.log(b);
-
     const saveByteArray = (() => {
       const a = document.createElement('a');
       document.body.appendChild(a);
@@ -59,8 +52,7 @@ class StoryLoader extends React.Component {
             onChange={this._getStoryFile}
             style={{ display: 'none' }}
           />
-        </label>
-        {' '}
+        </label>{' '}
         {loaded && (
           <button className="Label" onClick={this._saveStoryFile}>
             <i className="fa fa-save" aria-hidden="true" />
@@ -72,4 +64,7 @@ class StoryLoader extends React.Component {
   }
 }
 
-export default withReduxSaga(connect(state => state.story)(StoryLoader));
+export default connect(
+  state => state.story,
+  dispatch => bindActionCreators({ uploadData }, dispatch)
+)(StoryLoader);

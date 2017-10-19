@@ -1,22 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withReduxSaga } from './../../store';
+import { bindActionCreators } from 'redux';
 import { editName, addStep } from './actions';
 import Step from './../Step/index';
 import AddStep from './AddStep';
 
 class Story extends React.Component {
   _onChange = ({ target }) => {
-    const { dispatch } = this.props;
-    dispatch(
-      editName({
-        value: target.innerHTML
-      })
-    );
-  };
-
-  _addStep = () => {
-    this.props.dispatch(addStep())
+    this.props.editName({
+      value: target.innerHTML
+    });
   };
 
   render() {
@@ -29,6 +22,7 @@ class Story extends React.Component {
             flex: 1 0 0;
             height: auto;
             padding: 1em;
+            position: relative;
           }
 
           .Story:nth-child(2n + 1) {
@@ -46,11 +40,9 @@ class Story extends React.Component {
               onBlur={this._onChange}
             />
             {steps.map(step => {
-              return (
-                <Step key={step.id} {...step} mode={mode} steps={steps} />
-              );
+              return <Step key={step.id} {...step} mode={mode} steps={steps} />;
             })}
-            {editable && <AddStep onClick={this._addStep} />}
+            {editable && <AddStep onClick={this.props.addStep} />}
           </div>
         ) : (
           <p>Loading...</p>
@@ -60,4 +52,7 @@ class Story extends React.Component {
   }
 }
 
-export default withReduxSaga(connect(state => state.story)(Story));
+export default connect(
+  state => state.story,
+  dispatch => bindActionCreators({ editName, addStep }, dispatch)
+)(Story);

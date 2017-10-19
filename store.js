@@ -7,13 +7,15 @@ import createSagaMiddleware from 'redux-saga';
 
 import story from './components/Story/reducer';
 import mode from './components/Mode/reducer';
+import gameState from './components/GameState/reducer';
 import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   story,
-  mode
+  mode,
+  gameState
 });
 
 export function configureStore(initialState = {}) {

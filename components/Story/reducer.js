@@ -7,9 +7,15 @@ function reducer(state = initialState, action) {
 
   const defaultStep = () => ({
     id: getNextId(),
-    title: 'Example title',
-    text: 'Example test',
-    to: []
+    title: 'New step title',
+    text: 'New step description',
+    actions: {
+      goTo: [
+        {
+          step: 0
+        }
+      ]
+    }
   });
 
   const applyToStep = (id, func) => {
@@ -48,7 +54,13 @@ function reducer(state = initialState, action) {
       }));
 
     case actionTypes.EDIT_TO_STEPS:
-      return applyToStep(action.id, step => ({ ...step, to: action.to }));
+      return applyToStep(action.id, step => ({
+        ...step,
+        actions: {
+          ...step.actions,
+          goTo: action.to.map(t => ({ step: t }))
+        }
+      }));
 
     case actionTypes.EDIT_NAME:
       return {

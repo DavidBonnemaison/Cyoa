@@ -1,7 +1,8 @@
 import React from 'react';
 import { Element, Link } from 'react-scroll';
 import { MultiSelect } from 'react-selectize';
-import { withReduxSaga } from './../../store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Editable from './Editable';
 import { editToSteps } from './../Story/actions';
 
@@ -11,17 +12,17 @@ class Step extends React.Component {
   }
 
   _editToStep = options => {
-    console.log(options);
-    const { id, dispatch } = this.props;
+    const { id, editToSteps } = this.props;
     const to = options.map(o => o.value);
-    dispatch(editToSteps({ id, to }));
+    editToSteps({ id, to });
   };
 
   render() {
     const { props } = this;
-    const { mode, to, steps } = props;
-    const stepTos = steps.map(s => ({ label: s.title, value: s.id }));
-    const getStepLabel = value => steps.filter(s => s.id === value)[0].title;
+    const { mode, actions, steps } = props;
+    const { goTo } = actions;
+    const places = steps.map(s => ({ label: s.title, value: s.id }));
+    const getPlaceLabel = value => steps.filter(s => s.id === value)[0].title;
 
     return steps ? (
       <Element className="Step" name={`#step-${props.id}`}>
@@ -57,9 +58,14 @@ class Step extends React.Component {
         <Editable {...props} elm="p" selector="text" />
         {mode === 'view' ? (
           <div className="GoToButtons">
-            {to.filter(t => t!== null).map(t => (
-              <Link to={`#step-${t}`} key={t} smooth={true} duration={200}>
-                <button>{getStepLabel(t)}</button>
+            {goTo.filter(t => t !== null).map(({ step }) => (
+              <Link
+                to={`#step-${step}`}
+                key={step}
+                smooth={true}
+                duration={200}
+              >
+                <button>{getPlaceLabel(step)}</button>
               </Link>
             ))}
           </div>
@@ -67,10 +73,10 @@ class Step extends React.Component {
           <MultiSelect
             key={Math.random()}
             placeholder="Select next steps"
-            options={stepTos}
-            defaultValues={to.filter(t => t!== null).map(t => ({
-              label: getStepLabel(t),
-              value: t
+            options={places}
+            defaultValues={goTo.filter(t => t !== null).map(({ step }) => ({
+              label: getPlaceLabel(step),
+              value: step
             }))}
             onValuesChange={this._editToStep}
           />
@@ -80,4 +86,7 @@ class Step extends React.Component {
   }
 }
 
-export default withReduxSaga(Step);
+export default connect(
+  state => state,
+  dispatch => bindActionCreators({ editToSteps }, dispatch)
+)(Step);

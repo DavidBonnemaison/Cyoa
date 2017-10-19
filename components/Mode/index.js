@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withReduxSaga } from './../../store';
+import { bindActionCreators } from 'redux';
 import Story from './../Story/index';
 import { switchMode } from './actions';
 import SplashScreen from '../Story/StoryLoader';
@@ -62,7 +62,7 @@ class Mode extends React.Component {
   }
 
   _switchMode = ({ target }) => {
-    this.props.dispatch(switchMode(target.id));
+    this.props.switchMode(target.id);
   };
 
   render() {
@@ -114,4 +114,7 @@ class Mode extends React.Component {
   }
 }
 
-export default withReduxSaga(connect(state => ({ ...state }))(Mode));
+export default connect(
+  state => state,
+  dispatch => bindActionCreators({ switchMode }, dispatch)
+)(Mode);

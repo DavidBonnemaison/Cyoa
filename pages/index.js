@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withReduxSaga } from './../store';
 import Mode from './../components/Mode/index';
+import GameState from './../components/GameState/index';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,7 +30,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { loaded } = this.props;
     return (
       <div style={{ height: '100%' }}>
         <style global jsx>{`
@@ -57,6 +57,7 @@ class App extends React.Component {
             display: block;
           }
         `}</style>
+        <GameState />
         <Mode />
       </div>
     );

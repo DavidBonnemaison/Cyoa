@@ -1,5 +1,6 @@
 import React from 'react';
-import { withReduxSaga } from './../../store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { editField } from './../Story/actions';
 
 class Editable extends React.Component {
@@ -11,14 +12,12 @@ class Editable extends React.Component {
   }
 
   _onChange = ({ target }) => {
-    const { dispatch, selector, id } = this.props;
-    dispatch(
-      editField({
-        id,
-        field: selector,
-        value: target.value || target.innerHTML
-      })
-    );
+    const { editField, selector, id } = this.props;
+    editField({
+      id,
+      field: selector,
+      value: target.value || target.innerHTML
+    });
     this.setState({
       pristine: true
     });
@@ -57,4 +56,7 @@ class Editable extends React.Component {
   }
 }
 
-export default withReduxSaga(Editable);
+export default connect(
+  state => state,
+  dispatch => bindActionCreators({ editField }, dispatch)
+)(Editable);
