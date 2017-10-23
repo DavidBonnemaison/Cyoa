@@ -5,6 +5,7 @@ export const actionTypes = {
   LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
   EDIT_FIELD: 'EDIT_FIELD',
   EDIT_NAME: 'EDIT_NAME',
+  EDIT_CHARACTER: 'EDIT_CHARACTER',
   EDIT_TO_STEPS: 'EDIT_TO_STEPS',
   ADD_STEP: 'ADD_STEP'
 };
@@ -41,6 +42,12 @@ export const editField = ({ id, field, value }) => ({
 
 export const editName = ({ value }) => ({
   type: actionTypes.EDIT_NAME,
+  value
+});
+
+export const editCharacter = ({ id, value }) => ({
+  type: actionTypes.EDIT_CHARACTER,
+  id,
   value
 });
 

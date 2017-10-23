@@ -31,9 +31,9 @@ class Editable extends React.Component {
 
   render() {
     const { props, state } = this;
-    const { elm, selector, mode } = props;
+    const { elm, selector, storyMode } = props;
     const { pristine } = state;
-    const editable = mode === 'edit';
+    const editable = storyMode === 'edit';
     const Elm = elm;
     return (
       <Elm

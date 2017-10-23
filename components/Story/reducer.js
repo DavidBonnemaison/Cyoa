@@ -74,6 +74,12 @@ function reducer(state = initialState, action) {
         steps: state.steps.concat(defaultStep())
       };
 
+    case actionTypes.EDIT_CHARACTER:
+      return applyToStep(action.id, step => ({
+        ...step,
+        character: action.value
+      }));
+
     default:
       return state;
   }

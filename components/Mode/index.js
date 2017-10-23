@@ -5,8 +5,8 @@ import Story from './../Story/index';
 import { switchMode } from './actions';
 import SplashScreen from '../Story/StoryLoader';
 
-const editMode = () => <Story mode="edit" />;
-const viewMode = () => <Story mode="view" />;
+const editMode = () => <Story storyMode="edit" />;
+const viewMode = () => <Story storyMode="view" />;
 const mixedMode = () => (
   <div className="Mixed">
     <style global jsx>{`
@@ -15,8 +15,8 @@ const mixedMode = () => (
         flex-direction: row;
       }
     `}</style>
-    <Story mode="edit" />
-    <Story mode="view" />
+    <Story storyMode="edit" />
+    <Story storyMode="view" />
   </div>
 );
 

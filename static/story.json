@@ -9,11 +9,30 @@
       "minimum": 0,
       "initial": 100,
       "current": 100
-    }
+    },
+    "character": 0
   },
+  "characters": [
+    {
+      "id": 0,
+      "name": "Narrator",
+      "playable": false
+    },
+    {
+      "id": 1,
+      "name": "Jane",
+      "playable": true
+    },
+    {
+      "id": 2,
+      "name": "John",
+      "playable": false
+    }
+  ],
   "steps": [
     {
       "id": 0,
+      "type": "place",
       "title": "Spawning_point",
       "text": "This is where you spawn",
       "actions": {
@@ -29,6 +48,7 @@
     },
     {
       "id": 1,
+      "type": "place",
       "title": "Place_1",
       "text": "This is a place you can go in with enough strength",
       "conditions": [
@@ -48,6 +68,7 @@
     },
     {
       "id": 2,
+      "type": "place",
       "title": "Place_2",
       "text": "This is a place you can go before 2017 and if it is open and nice enough",
       "state": {
@@ -91,6 +112,37 @@
           }
         ]
       }
+    },
+    {
+      "id": 3,
+      "title": "Dialog_1",
+      "text": "This is a text by a character",
+      "type": "dialog",
+      "character": 1,
+      "actions": {
+        "goTo": [
+          {
+            "step": 0,
+            "stepLabel": "Go to the beginning"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "title": "Dialog_2",
+      "text": "This is a text by the narrator",
+      "type": "dialog",
+      "character": 0,
+      "actions": {
+        "goTo": [
+          {
+            "step": 0,
+            "stepLabel": "Go to the beginning"
+          }
+        ]
+      }
     }
   ]
+
 }

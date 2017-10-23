@@ -13,8 +13,8 @@ class Story extends React.Component {
   };
 
   render() {
-    const { steps, name, mode } = this.props;
-    const editable = mode === 'edit';
+    const { steps, name, storyMode } = this.props;
+    const editable = storyMode === 'edit';
     return (
       <div className="Story">
         <style jsx>{`
@@ -40,7 +40,7 @@ class Story extends React.Component {
               onBlur={this._onChange}
             />
             {steps.map(step => {
-              return <Step key={step.id} {...step} mode={mode} steps={steps} />;
+              return <Step key={step.id} step={step} storyMode={storyMode} steps={steps} />;
             })}
             {editable && <AddStep onClick={this.props.addStep} />}
           </div>
