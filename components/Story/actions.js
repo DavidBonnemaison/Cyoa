@@ -7,7 +7,9 @@ export const actionTypes = {
   EDIT_NAME: 'EDIT_NAME',
   EDIT_CHARACTER: 'EDIT_CHARACTER',
   EDIT_TO_STEPS: 'EDIT_TO_STEPS',
-  ADD_STEP: 'ADD_STEP'
+  ADD_STEP: 'ADD_STEP',
+  REMOVE_STEP: 'REMOVE_STEP',
+  SWITCH_TYPE: 'SWITCH_TYPE'
 };
 
 export function failure(error) {
@@ -54,9 +56,20 @@ export const editCharacter = ({ id, value }) => ({
 export const editToSteps = ({ id, to }) => ({
   type: actionTypes.EDIT_TO_STEPS,
   id,
-  to: to.filter(t => t!== null)
+  to: to.filter(t => t !== null)
 });
 
 export const addStep = () => ({
   type: actionTypes.ADD_STEP
+});
+
+export const removeStep = ({ id }) => ({
+  type: actionTypes.REMOVE_STEP,
+  id
+});
+
+export const switchType = ({ id, from }) => ({
+  type: actionTypes.SWITCH_TYPE,
+  id: Number(id),
+  from
 });

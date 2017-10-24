@@ -21,6 +21,8 @@ class Dialog extends React.Component {
       label: c.name,
       value: c.id
     }));
+    const getCharacterFace = id =>
+      characters.filter(c => c.id === id)[0].avatar;
     return (
       <div>
         <style jsx>{`
@@ -28,11 +30,19 @@ class Dialog extends React.Component {
             font-size: 1.2em;
             height: 1.85em;
           }
+
+          .Avatar img {
+            max-width: 2em
+          }
         `}</style>
         <Editable {...step} elm="h2" selector="title" storyMode={storyMode} />
         {storyMode === 'view' ? (
           <div className="Avatar">
-            {character !== 0 && getCharacterNameById(character) + ' :'}
+            {character !== 0 &&
+            getCharacterFace(character) && (
+              <img src={getCharacterFace(character)} />
+            )}
+            {character !== 0 && getCharacterNameById(character)}
           </div>
         ) : (
           <SimpleSelect

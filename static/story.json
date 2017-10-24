@@ -21,12 +21,14 @@
     {
       "id": 1,
       "name": "Jane",
-      "playable": true
+      "playable": true,
+      "avatar": "/static/img/grandma.png"
     },
     {
       "id": 2,
       "name": "John",
-      "playable": false
+      "playable": false,
+      "avatar": "/static/img/you.jpg"
     }
   ],
   "steps": [
@@ -137,8 +139,7 @@
       "actions": {
         "goTo": [
           {
-            "step": 0,
-            "stepLabel": "Go to the beginning"
+            "step": 0
           }
         ]
       }

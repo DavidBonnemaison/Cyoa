@@ -1,5 +1,7 @@
 import { actionTypes } from './actions';
 
+const stepTypes = ['place', 'dialog'];
+
 export const initialState = { loaded: false };
 
 function reducer(state = initialState, action) {
@@ -9,6 +11,7 @@ function reducer(state = initialState, action) {
     id: getNextId(),
     title: 'New step title',
     text: 'New step description',
+    type: stepTypes[0],
     actions: {
       goTo: [
         {
@@ -74,10 +77,28 @@ function reducer(state = initialState, action) {
         steps: state.steps.concat(defaultStep())
       };
 
+    case actionTypes.REMOVE_STEP:
+      console.log('coucou');
+      return {
+        ...state,
+        steps: state.steps.filter(step => step.id !== action.id)
+      };
+
     case actionTypes.EDIT_CHARACTER:
       return applyToStep(action.id, step => ({
         ...step,
         character: action.value
+      }));
+
+    case actionTypes.SWITCH_TYPE:
+      const typeIndex = stepTypes.indexOf(action.from);
+      const nextType =
+        typeIndex === stepTypes.length - 1
+          ? stepTypes[0]
+          : stepTypes[typeIndex + 1];
+      return applyToStep(action.id, step => ({
+        ...step,
+        type: nextType
       }));
 
     default:
