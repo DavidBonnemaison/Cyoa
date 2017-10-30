@@ -9,7 +9,8 @@ export const actionTypes = {
   EDIT_TO_STEPS: 'EDIT_TO_STEPS',
   ADD_STEP: 'ADD_STEP',
   REMOVE_STEP: 'REMOVE_STEP',
-  SWITCH_TYPE: 'SWITCH_TYPE'
+  SWITCH_TYPE: 'SWITCH_TYPE',
+  EDIT_TO_STEP_LABEL: 'EDIT_TO_STEP_LABEL'
 };
 
 export function failure(error) {
@@ -72,4 +73,11 @@ export const switchType = ({ id, from }) => ({
   type: actionTypes.SWITCH_TYPE,
   id: Number(id),
   from
+});
+
+export const editStepLabel = ({ id, label, step }) => ({
+  type: actionTypes.EDIT_TO_STEP_LABEL,
+  id: Number(id),
+  label,
+  step: Number(step)
 });

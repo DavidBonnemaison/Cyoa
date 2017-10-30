@@ -61,7 +61,24 @@ function reducer(state = initialState, action) {
         ...step,
         actions: {
           ...step.actions,
-          goTo: action.to.map(t => ({ step: t }))
+          goTo: action.to.map(goTo => ({
+            step: goTo,
+            stepLabel: state.steps.filter(step => step.id === goTo)[0].title
+          }))
+        }
+      }));
+
+    case actionTypes.EDIT_TO_STEP_LABEL:
+      return applyToStep(action.id, step => ({
+        ...step,
+        actions: {
+          ...step.actions,
+          goTo: step.actions.goTo.map(
+            goToStep =>
+              goToStep.step === action.step
+                ? { ...goToStep, stepLabel: action.label }
+                : goToStep
+          )
         }
       }));
 

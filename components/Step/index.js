@@ -3,7 +3,12 @@ import { Element, Link } from 'react-scroll';
 import { MultiSelect } from 'react-selectize';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { editToSteps, removeStep, switchType } from './../Story/actions';
+import {
+  editToSteps,
+  removeStep,
+  switchType,
+  editStepLabel
+} from './../Story/actions';
 import Dialog from './Dialog';
 import Place from './Place';
 
@@ -29,16 +34,29 @@ class Step extends React.Component {
     this.props.switchType({ id: target.id, from: target.innerHTML });
   };
 
+  _editStepLabel = ({ target }) => {
+    this.props.editStepLabel({
+      id: target.id,
+      label: target.value,
+      step: target.name
+    });
+  };
+
   render() {
     const { props } = this;
     const { steps, step, storyMode } = props;
     const { actions, type, id } = step;
     const { goTo } = actions;
     const places = steps.map(s => ({ label: s.title, value: s.id }));
-    const getPlaceLabel = value =>
-      steps.filter(s => s.id === value)[0]
-        ? steps.filter(s => s.id === value)[0].title
-        : 'undefined';
+
+    const getPlaceName = value =>
+      steps.filter(s => s.id === value)[0].title || 'undefined';
+
+    const getPlaceLabel = value => {
+      const stepLabel = step.actions.goTo.filter(s => s.step === value)[0]
+        .stepLabel;
+      return stepLabel || getPlaceName(value);
+    };
 
     return steps ? (
       <Element className="Step" name={`step-${id}`}>
@@ -48,6 +66,17 @@ class Step extends React.Component {
               border-top: 1px solid black;
               padding: 3em 0;
               position: relative;
+            }
+
+            textarea {
+              background: white;
+              width: 100%;
+              margin: 0.5em 0;
+              padding: 0.2em;
+            }
+
+            textarea.h2 {
+              font-size: 2em;
             }
           `}
         </style>
@@ -87,6 +116,12 @@ class Step extends React.Component {
               padding: 0.5em;
               cursor: pointer;
             }
+            .StepLabel {
+              width: 100%;
+              padding: 0.2em;
+              margin: 0.2em;
+              box-sizing: border-box;
+            }
           `}
         </style>
         {type === 'place' ? (
@@ -115,11 +150,22 @@ class Step extends React.Component {
               placeholder="Select next steps"
               options={places}
               defaultValues={goTo.filter(t => t !== null).map(({ step }) => ({
-                label: getPlaceLabel(step),
+                label: getPlaceName(step),
                 value: step
               }))}
               onValuesChange={this._editToStep}
             />
+            {goTo.map(({ step: localStep, stepLabel }) => (
+              <input
+                key={`${localStep}-${stepLabel}`}
+                type="text"
+                id={step.id}
+                defaultValue={stepLabel}
+                name={localStep}
+                onBlur={this._editStepLabel}
+                className="StepLabel"
+              />
+            ))}
           </div>
         )}
       </Element>
@@ -130,5 +176,8 @@ class Step extends React.Component {
 export default connect(
   state => state,
   dispatch =>
-    bindActionCreators({ editToSteps, removeStep, switchType }, dispatch)
+    bindActionCreators(
+      { editToSteps, removeStep, switchType, editStepLabel },
+      dispatch
+    )
 )(Step);
