@@ -34,14 +34,15 @@ class Editable extends React.Component {
     const { elm, selector, storyMode } = props;
     const { pristine } = state;
     const editable = storyMode === 'edit';
-    const Elm = elm;
     return (
-      <Elm
+      <textarea
         onChange={this._onChange}
         onBlur={this._onChange}
-        contentEditable={editable}
+        disabled={!editable}
         value={props[selector]}
         onInput={this._onInput}
+        className={elm}
+        rows={elm === 'h2' ? 1 : 8}
         style={{
           border:
             editable && pristine
@@ -50,7 +51,6 @@ class Editable extends React.Component {
                 ? '1px dashed red'
                 : '1px solid transparent'
         }}
-        dangerouslySetInnerHTML={{ __html: props[selector] }}
       />
     );
   }
