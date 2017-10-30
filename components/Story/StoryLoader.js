@@ -11,7 +11,7 @@ class StoryLoader extends React.Component {
 
     reader.onload = upload => {
       this.props.uploadData({
-        data: decode(upload.target.result.replace('data:;base64,', '')),
+        data: decode(upload.target.result.replace('data:;base64,', '').replace('data:application/json;base64,', '')),
         name: file.name
       });
     };

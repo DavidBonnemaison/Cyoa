@@ -2,7 +2,7 @@ import { actionTypes } from './actions';
 
 const stepTypes = ['place', 'dialog'];
 
-export const initialState = { loaded: false };
+export const initialState = {loaded: false};
 
 function reducer(state = initialState, action) {
   const getNextId = () => Math.max(...state.steps.map(s => s.id)) + 1;
@@ -78,7 +78,6 @@ function reducer(state = initialState, action) {
       };
 
     case actionTypes.REMOVE_STEP:
-      console.log('coucou');
       return {
         ...state,
         steps: state.steps.filter(step => step.id !== action.id)
