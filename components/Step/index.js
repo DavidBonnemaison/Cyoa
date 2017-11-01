@@ -66,6 +66,7 @@ class Step extends React.Component {
               border-top: 1px solid black;
               padding: 3em 0;
               position: relative;
+              min-height: 24em;
             }
 
             textarea {
